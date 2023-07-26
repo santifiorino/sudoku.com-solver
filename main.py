@@ -64,7 +64,9 @@ def split_grid(cropped_grid):
     squares = []
     for i in range(9):
         for j in range(9):
-            squares.append(img[i*square_size:(i+1)*square_size, j*square_size:(j+1)*square_size])
+            square_img = img[i*square_size:(i+1)*square_size, j*square_size:(j+1)*square_size]
+            square_img = cv2.resize(square_img, (55, 55), interpolation=cv2.INTER_AREA)
+            squares.append(square_img)
     return squares
 
 # -- Machine learning model
@@ -76,8 +78,9 @@ def squares_images_to_sudoku(squares_images):
     return sudoku.reshape(9, 9)
 
 def predict_digit(img, knn):
-    img = img.reshape(1, -1)
-    return knn.predict(img)[0]
+    img_vec = img.reshape(1, -1)
+    prediction = knn.predict(img_vec)[0]
+    return prediction
 
 def create_knn_model():
     df = pd.read_csv("dataset.csv")
