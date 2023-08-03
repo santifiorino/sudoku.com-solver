@@ -1,6 +1,17 @@
 # Sudoku.com Solver
 Demo:
 ![Solver](https://github.com/santifiorino/sudoku.com-solver/assets/94584235/c4301548-578c-47cf-b46a-dfaa9382fab8)
+
+## Getting started
+Create a virtual environment by running `python3 -m venv venv`
+
+Activate the environment by running, on Windows, `.\venv\Scripts\activate.bat`, and, on Unix or MacOS, in a **bash** shell `source venv/bin/activate`.
+
+Install requirements with `pip3 install -r requirements.txt`
+
+Run project with `python main.py` make sure you have <a href="https://sudoku.com/" target="_blank">Sudoku</a> page open.
+
+
 ## About
 This repository contains the code for a Sudoku.com Solver, which was created for a <a href="https://youtu.be/-bjTb0o6EAQ" target="_blank">YouTube video</a> on backtracking algorithms. In the video, I use the game of Sudoku since its perfect to solve using backtracking, it's simple, and everyone knows it. This project includes:
 ### Backtracking Algorithm and Pruning:
