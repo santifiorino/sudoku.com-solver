@@ -1,3 +1,4 @@
+import platform
 import cv2
 import skimage
 import numpy as np
@@ -6,9 +7,18 @@ from sklearn.neighbors import KNeighborsClassifier
 import pyautogui
 from SudokuSolver import SudokuSolver
 
+# This part solves the issue #3 Os x
+system = platform.system()
+if system == 'Darwin':
+    import pyscreeze
+    import PIL
+
+    __PIL_TUPLE_VERSION = tuple(int(x) for x in PIL.__version__.split("."))
+    pyscreeze.PIL__version__ = __PIL_TUPLE_VERSION
+
 def main():
     # Make sure alt-tabbing switches to the browser where sudoku.com is open
-    pyautogui.hotkey("alt", "tab", interval=0.1)
+    pyautogui.hotkey("command" if system == 'Darwin' else "alt", "tab", interval=0.1)
     # Take a screenshot of the screen and find the sudoku
     screenshot = pyautogui.screenshot()
     screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
@@ -96,7 +106,7 @@ def solve_on_website(square_contour, solved):
     square_size = h // 9
     for i in range(9):
         for j in range(9):
-            pyautogui.click(x + j*square_size + square_size//2, y + i*square_size + square_size//2, _pause=False)
+            pyautogui.click(x + j*square_size + square_size//2, y + i*square_size + square_size//2, _pause=True if system == 'Darwin' else False)
             pyautogui.press(str(solved[i, j]), _pause=False)
 
 if __name__ == '__main__':
